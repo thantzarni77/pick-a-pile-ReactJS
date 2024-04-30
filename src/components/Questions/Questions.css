@@ -1,0 +1,29 @@
+.pilesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination li {
+  list-style: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  margin: 0px 10px;
+  background-color: #36151e;
+  color: #ffcc00;
+  border-radius: 20px;
+}
+
+.pagination li:hover {
+  background-color: #0e0e0e;
+}
+
+.pagination .active {
+  background-color: #183766;
+}
