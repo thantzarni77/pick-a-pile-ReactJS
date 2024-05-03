@@ -4,7 +4,7 @@ import QuestionDescript from "./components/QuestionDescript/QuestionDescript";
 import Questions from "./components/Questions/Questions";
 import data from "./assets/PickAPile";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Loading from "./components/Loading/Loading";
 
 function App() {
@@ -17,8 +17,10 @@ function App() {
     }, 1000);
   }, []);
 
+  const navigate = useNavigate();
+
   const handleReadMore = (route) => {
-    window.location.href = `/piles/${route}`;
+    navigate(`/piles/${route}`);
   };
 
   const handleAnswer = (questionID, answerID) => {
