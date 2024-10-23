@@ -1,7 +1,13 @@
 import React from "react";
 import "./QuestionCard.css";
 
-const QuestionCard = ({ QuestionName, ImgPath, buttonFun }) => {
+interface Props {
+  QuestionName: string;
+  ImgPath: string | number;
+  buttonFun: (route: string | number) => void;
+}
+
+const QuestionCard = ({ QuestionName, ImgPath, buttonFun }: Props) => {
   const generateRandomNumber = () => {
     return Math.floor(Math.random() * 4) + 1;
   };

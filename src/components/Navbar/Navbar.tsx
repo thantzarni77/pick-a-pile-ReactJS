@@ -3,7 +3,7 @@ import logo from "../../../public/img/logo.png";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <div className="navBarContainer">
       <Link to="/">

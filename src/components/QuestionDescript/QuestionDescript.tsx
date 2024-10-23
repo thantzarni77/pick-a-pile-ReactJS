@@ -2,18 +2,30 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./QuestionDescript.css";
 
+interface Props {
+  quesName: string;
+  quesDes: string;
+  quesID: number;
+  handleAnswer: (questionID: number, answerID: number) => void;
+  answer: string;
+}
+
+interface ArgumentsMap {
+  [key: number]: number[];
+}
+
 const QuestionDescript = ({
   quesName,
   quesDes,
   quesID,
   handleAnswer,
   answer,
-}) => {
-  const [answerID, setAnswerID] = useState([]);
+}: Props) => {
+  const [answerID, setAnswerID] = useState<number[]>([]);
 
   useEffect(() => {
     // Data structure to match quesIDs with answerIDs
-    const argumentsMap = {
+    const argumentsMap: ArgumentsMap = {
       1: [1, 2, 3, 4],
       2: [5, 6, 7, 8],
       3: [9, 10, 11, 12],
@@ -35,24 +47,31 @@ const QuestionDescript = ({
     setAnswerID(argumentsMap[quesID] || []);
   }, [quesID]);
 
-  const handleImageClick = (index) => {
-    const imgContainer = document.getElementById("imgContainer");
+  const handleImageClick = (index: number) => {
+    const imgContainer: HTMLElement = document.getElementById(
+      "imgContainer"
+    ) as HTMLElement;
+
     handleAnswer(quesID, answerID[index]);
-    const getImg = document.querySelector(`.img${index}`);
+    const getImg: HTMLElement | null = document.querySelector(`.img${index}`);
     imgContainer.innerHTML = "";
     imgContainer.style.justifyContent = "space-around";
     imgContainer.style.alignItems = "center";
     imgContainer.style.flexWrap = "nowrap";
     const pileAnswer = document.createElement("div");
     pileAnswer.classList.add("pileAnswer");
-    const pileNo = index + 1;
-    const pile = document.createElement("h1");
-    const answer = document.getElementById("answer");
+    const pileNo: number = index + 1;
+    const pile: HTMLHeadingElement = document.createElement("h1");
+    const answer: HTMLElement = document.getElementById(
+      "answer"
+    ) as HTMLElement;
     answer.style.display = "flex";
-    pile.append("Pile", pileNo);
+    pile.append(`Pile ${pileNo}`);
     pileAnswer.append(pile, answer);
     setTimeout(() => {
-      imgContainer.append(getImg);
+      if (getImg) {
+        imgContainer.append(getImg);
+      }
       imgContainer.append(pileAnswer);
     }, 0);
   };

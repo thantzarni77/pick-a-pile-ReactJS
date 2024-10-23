@@ -1,15 +1,30 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import QuestionDescript from "./components/QuestionDescript/QuestionDescript";
 import Questions from "./components/Questions/Questions";
-import data from "./assets/PickAPile";
+import data from "./assets/PickAPile.json";
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Loading from "./components/Loading/Loading";
 
-function App() {
-  const [answer, setAnswer] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+interface Answer {
+  AnswerId: number;
+  AnswerImageUrl: string;
+  AnswerName: string;
+  AnswerDesp: string;
+  QuestionId: number;
+}
+
+interface Question {
+  QuestionId: number;
+  QuestionName: string;
+  QuestionDesp: string;
+}
+
+const App: React.FC = () => {
+  const [answer, setAnswer] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,13 +34,13 @@ function App() {
 
   const navigate = useNavigate();
 
-  const handleReadMore = (route) => {
+  const handleReadMore = (route: string | number) => {
     navigate(`/piles/${route}`);
   };
 
-  const handleAnswer = (questionID, answerID) => {
-    const foundAnswer = data.Answers.find(
-      (single) =>
+  const handleAnswer = (questionID: number, answerID: number) => {
+    const foundAnswer: Answer = data.Answers.find(
+      (single: Answer) =>
         single.QuestionId === questionID && single.AnswerId === answerID
     );
 
@@ -51,7 +66,7 @@ function App() {
             element={<Questions handleReadMore={handleReadMore} />}
           />
 
-          {data.Questions.map((question) => (
+          {data.Questions.map((question: Question) => (
             <Route
               key={question.QuestionId}
               path={`/piles/${question.QuestionId}`}
@@ -70,6 +85,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
